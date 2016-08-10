@@ -125,8 +125,6 @@ class TogglClientApi:
 
     @staticmethod
     def _do_get_query(url, headers, auth, params):
-        print url
-        print params
         response = requests.get(url, headers=headers, auth=auth, params=params)
 
         return response
