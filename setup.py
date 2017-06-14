@@ -6,7 +6,7 @@ def readme():
         return f.read()
 
 setup(name='python-toggl',
-      version='0.1.4',
+      version='0.1.6',
       description='Python Wrapper for Toggl API',
       long_description=readme(),
       url='https://github.com/swappsco/toggl-python-api-client',

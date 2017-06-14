@@ -118,15 +118,22 @@ class TogglClientApi:
         if method == "POST":
             return False
         elif method == "GET":
-            response = self._do_get_query(api_endpoint, headers=toggl_headers, auth=toggl_auth, params=params)
+            response = self._do_get_query(
+                api_endpoint, headers=toggl_headers,
+                auth=toggl_auth, params=params,
+                timeout=self.timeout)
         else:
-            response = self._do_get_query(api_endpoint, headers=toggl_headers, auth=toggl_auth, params=params)
+            response = self._do_get_query(
+                api_endpoint, headers=toggl_headers,
+                auth=toggl_auth, params=params,
+                timeout=self.timeout)
 
         return response
 
     @staticmethod
-    def _do_get_query(url, headers, auth, params):
+    def _do_get_query(url, headers, auth, params, timeout):
         response = requests.get(
-            url, headers=headers, auth=auth, params=params, timeout=180)
+            url, headers=headers, auth=auth, params=params,
+            timeout=timeout)
 
         return response
