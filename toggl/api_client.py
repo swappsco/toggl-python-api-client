@@ -25,6 +25,7 @@ class TogglClientApi:
         self.api_base_url = self.build_api_url(self.credentials['base_url'], self.credentials['ver_api'])
         self.api_report_base_url = self.build_api_url(self.credentials['base_url_report'], self.credentials['ver_report'])
         self.api_token = self.credentials['token']
+        self.timeout = self.credentials.get('timeout', 60)
         self.api_username = self.credentials['username']
         self.user_agent = self.credentials['user_agent']
         self.workspace_id = int(self.credentials['workspace_id'])
@@ -125,6 +126,7 @@ class TogglClientApi:
 
     @staticmethod
     def _do_get_query(url, headers, auth, params):
-        response = requests.get(url, headers=headers, auth=auth, params=params)
+        response = requests.get(
+            url, headers=headers, auth=auth, params=params, timeout=180)
 
         return response
