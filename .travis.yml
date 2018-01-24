@@ -5,4 +5,4 @@ python:
 - pypy
 
 install:
-  - httpretty
+  - pip install httpretty==0.8.14
