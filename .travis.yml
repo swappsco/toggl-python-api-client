@@ -6,6 +6,8 @@ python:
 
 install:
   - pip install httpretty==0.8.14
+  - python setup.py -q install
+
 
 script:
   - python tests/tests_offline.py
