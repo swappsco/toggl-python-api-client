@@ -10,7 +10,8 @@ class TogglClientApi:
         'base_url': 'https://www.toggl.com/api',
         'ver_api': 8,
         'base_url_report': 'https://toggl.com/reports/api',
-        'ver_report': 2
+        'ver_report': 2,
+        'user_agent': 'python'
     }
     credentials = {}
     api_token = ''
