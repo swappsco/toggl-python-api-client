@@ -2,12 +2,33 @@ language: python
 python:
 - '2.7'
 - '3.3'
+- '3.4'
+- '3.5'
+- '3.6'
 - pypy
 
 install:
   - pip install httpretty==0.8.14
   - python setup.py -q install
 
+environment:
+  START_DATE: 2000-01-01
+  END_DATE: 2000-01-07
 
 script:
-  - python tests/tests_offline.py
+  - echo "{"                                                  >> tests/tests_live_config.json
+  - echo "      \"workspace_name\": \"${WORKSPACE_NAME}\","   >> tests/tests_live_config.json
+  - echo "      \"token\": \"${TOKEN}\","                     >> tests/tests_live_config.json
+  - echo "      \"workspace_id\": ${WORKSPACE_ID},"           >> tests/tests_live_config.json
+  - echo "      \"user_id\": ${USER_ID},"                     >> tests/tests_live_config.json
+  - echo "      \"start_date\": \"${START_DATE}\","           >> tests/tests_live_config.json
+  - echo "      \"end_date\": \"${END_DATE}\""                >> tests/tests_live_config.json
+  - echo "}"                                                  >> tests/tests_live_config.json
+  - python -m unittest discover
+
+# TODO:
+# gem install travis
+# travis encrypt --add WORKSPACE_NAME=workspace-name
+# travis encrypt --add TOKEN=xxxx
+# travis encrypt --add WORKSPACE_ID=123456
+# travis encrypt --add USER_ID=123456
