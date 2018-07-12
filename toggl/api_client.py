@@ -21,7 +21,8 @@ class TogglClientApi:
     requests = None
 
     def __init__(self, credentials):
-        self.credentials = dict(self.defaultCredentials.items() + credentials.items())
+        credentials.update(self.defaultCredentials)
+        self.credentials = credentials
         self.api_base_url = self.build_api_url(self.credentials['base_url'], self.credentials['ver_api'])
         self.api_report_base_url = self.build_api_url(self.credentials['base_url_report'], self.credentials['ver_report'])
         self.api_token = self.credentials['token']
