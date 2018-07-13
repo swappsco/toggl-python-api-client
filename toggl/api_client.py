@@ -4,7 +4,6 @@ from datetime import date
 class TogglClientApi:
 
     defaultCredentials = {
-        'token': '',
         'username': '',
         'workspace_name': '',
         'base_url': 'https://www.toggl.com/api',
