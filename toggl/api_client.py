@@ -1,7 +1,7 @@
 import requests
-from datetime import date
 
-class TogglClientApi:
+
+class TogglClientApi(object):
 
     defaultCredentials = {
         'username': '',
@@ -37,7 +37,7 @@ class TogglClientApi:
 
     def get_workspace_by_name(self, name):
         workspace_found = None
-        list_response = self.get_workspaces();
+        list_response = self.get_workspaces()
 
         if list_response.status_code != requests.codes.ok:
             list_response.raise_for_status()
@@ -87,8 +87,9 @@ class TogglClientApi:
     """
     @param start_date datetime.date()
     @param end_date datetime.date()
-    """""
-    def get_project_times(self, project_id, start_date, end_date):
+    """
+
+    def get_project_times(self, project_id, start_date, end_date, extra_params={}):
         params = {
             'workspace_id': self.workspace_id,
             'project_ids': project_id,
@@ -98,6 +99,7 @@ class TogglClientApi:
             'grouping': 'users',
             'subgrouping': 'projects'
         }
+        params.update(extra_params)
         time_entries_response = self.query_report('/details', params)
 
         json_response = time_entries_response.json()
