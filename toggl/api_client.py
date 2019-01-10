@@ -75,6 +75,9 @@ class TogglClientApi(object):
         }
         projects_worked_response = self.query_report('/summary', params)
 
+        if projects_worked_response.status_code != requests.codes.ok:
+            projects_worked_response.raise_for_status()
+
         json_response = projects_worked_response.json()
 
         if len(json_response['data']) > 0:
@@ -101,6 +104,9 @@ class TogglClientApi(object):
         }
         params.update(extra_params)
         time_entries_response = self.query_report('/details', params)
+
+        if time_entries_response.status_code != requests.codes.ok:
+            time_entries_response.raise_for_status()
 
         json_response = time_entries_response.json()
 
