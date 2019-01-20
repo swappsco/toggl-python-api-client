@@ -1,0 +1,20 @@
+language: python
+python:
+- '2.7'
+- '3.3'
+- '3.4'
+- '3.5'
+- '3.6'
+- pypy
+install:
+- pip install httpretty==0.8.14
+- python setup.py -q install
+environment:
+  START_DATE: 2000-01-01
+  END_DATE: 2000-01-07
+script:
+- ci/generate_tests_live_config.sh
+- python -m unittest discover
+env:
+  matrix:
+    secure: jdD2OsR6f9fKflbgF70mXiyexC7rIeiRqumeJNwD5WQ5nh7WKARU98KstZHJpABECnc4rLwYK+1jnnsWXBUicEfWvqqKcr+Fg8yGPXnYa8+rDg/sVPKl+OpMUjlUB+vu61jGGIfxZ5qqsTO7C4XJIx2Khq0aqqGYfQW+920pzaT8zZq+4HZxWUg4sPL+Z5QDR4H85+nFyR4ghC7tESbRUm0exdOW3Z4MJK3M11CGDif+eIQsrvsggFYS6FllTKHux2AHvQl2Rn/bA+PaHKW/zOITIKjGx3ygD8jM7dE1m2cbO0zmgwqqWtXeNM/9fjVhxhsoK5yFM9e96IAuMccI41IfzicIE4J/CQocdOtC1j8rNSlDQ2i3D+n2ubxu/6rm6UR/KHzFkLOGPAUzWWFO+ciSc1TLz/kWVfqB/JiFwNPPifVmkZ8o4PUjPYu24zz4JJgWGyNJ3AzmM4xqYpXoyDLjICgKOXue/Fq9iTBJI9kaWXNbUvTi5XS/oYI3S4+/D714jAPGCgreHDgtT8SaelP0T00PCq7g/9m0E14poD3rvlKXxu0HOdRaKxbIRwSbpliBRLbRTLJ+lKNvvTR6UpIs5GsbNvluCfT+Xg/j3jn6NJYAPQs15RTItYZeUNZ5rUKylV6LU1HdQ+fK1NCc+OhaNeaOi+dGd9QIUCa9uII=
