@@ -21,7 +21,7 @@ Download to a location of your choice and do the following.
 
 ```python
 
-from toggl-python-api-client.api_client import TogglClientApi
+from toggl.api_client import TogglClientApi
 
 settings = {
     'token': 'xxx',
