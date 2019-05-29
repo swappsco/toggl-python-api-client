@@ -119,6 +119,16 @@ class TogglClientApi(object):
 
         return json_response
 
+    def get_dashboard_data(self, params={}):
+        dashboard_response = self.query("/dashboard/%i" % self.workspace_id, params)
+
+        if dashboard_response.status_code != requests.codes.ok:
+            dashboard_response.raise_for_status()
+
+        json_response = dashboard_response.json()
+
+        return json_response
+
     def query_report(self, url, params={}, method="GET"):
         return self._query(self.api_report_base_url, url, params, method)
 
