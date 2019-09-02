@@ -129,19 +129,50 @@ class TogglClientApi(object):
 
         return json_response
 
+    def create_time_entry(self, json_data):
+        """
+        creates a time entry. data should have
+        this structure
+        {
+            "time_entry": {
+                "description":"<description>",
+                "tags":[<list-of-tags>],
+                "duration":<duration-in-seconds>,
+                "start":"<iso8601-format-datetime>",
+                "pid":<project-id>,
+                "created_with":"<name-of-your-client-app>"
+            }
+        }
+        """
+        response = self.query("/time_entries", method="POST", json_data=json_data)
+
+        if response.status_code != requests.codes.ok:
+            response.raise_for_status()
+
+        response = response.json()
+
+        return response
+
     def query_report(self, url, params={}, method="GET"):
         return self._query(self.api_report_base_url, url, params, method)
 
-    def query(self, url, params={}, method="GET"):
-        return self._query(self.api_base_url, url, params, method)
+    def query(self, url, params={}, method="GET", json_data={}):
+        return self._query(self.api_base_url, url, params, method, json_data)
 
-    def _query(self, base_url, url, params, method):
+    def _query(self, base_url, url, params, method, json_data={}):
         api_endpoint = base_url + url
         toggl_auth = (self.api_token, "api_token")
         toggl_headers = {"content-type": "application/json"}
 
         if method == "POST":
-            return False
+            response = self._do_post_query(
+                api_endpoint,
+                headers=toggl_headers,
+                auth=toggl_auth,
+                params=params,
+                timeout=self.timeout,
+                json_data=json_data,
+            )
         elif method == "GET":
             response = self._do_get_query(
                 api_endpoint,
@@ -165,6 +196,19 @@ class TogglClientApi(object):
     def _do_get_query(url, headers, auth, params, timeout):
         response = requests.get(
             url, headers=headers, auth=auth, params=params, timeout=timeout
+        )
+
+        return response
+
+    @staticmethod
+    def _do_post_query(url, headers, auth, params, timeout, json_data):
+        response = requests.post(
+            url,
+            headers=headers,
+            auth=auth,
+            json=json_data,
+            params=params,
+            timeout=timeout,
         )
 
         return response
