@@ -6,9 +6,9 @@ class TogglClientApi(object):
     defaultCredentials = {
         "username": "",
         "workspace_name": "",
-        "base_url": "https://www.toggl.com/api",
+        "base_url": "https://api.track.toggl.com/api",
         "ver_api": 8,
-        "base_url_report": "https://toggl.com/reports/api",
+        "base_url_report": "https://api.track.toggl.com/reports/api",
         "ver_report": 2,
     }
     credentials = {}
