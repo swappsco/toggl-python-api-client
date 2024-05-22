@@ -23,7 +23,7 @@ class TogglClientApiLiveTests(unittest.TestCase):
         self.assertNotEqual(self.api, None)
 
     def test_valid_toggl_base_url(self):
-        self.assertEqual(self.api.api_base_url, "https://api.track.toggl.com/api/v8")
+        self.assertEqual(self.api.api_base_url, "https://api.track.toggl.com/api/v9")
 
     def test_api_toggl_auth_check_response_ok(self):
         response = self.api.query("/me")

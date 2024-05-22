@@ -7,7 +7,7 @@ class TogglClientApi(object):
         "username": "",
         "workspace_name": "",
         "base_url": "https://api.track.toggl.com/api",
-        "ver_api": 8,
+        "ver_api": 9,
         "base_url_report": "https://api.track.toggl.com/reports/api",
         "ver_report": 2,
     }
@@ -56,11 +56,11 @@ class TogglClientApi(object):
     def get_workspaces(self):
         return self.query("/workspaces")
 
-    def get_projects(self):
-        return self.query("/workspaces/%i/projects" % self.workspace_id)
+    def get_projects(self, active=True):
+        return self.query("/workspaces/%i/projects" % self.workspace_id, params={"active": active})
 
     def get_workspace_members(self, workspace_id):
-        response = self.query("/workspaces/" + str(workspace_id) + "/workspace_users")
+        response = self.query("/workspaces/" + str(workspace_id) + "/users")
         return response
 
     """
@@ -120,7 +120,7 @@ class TogglClientApi(object):
         return json_response
 
     def get_dashboard_data(self, params={}):
-        dashboard_response = self.query("/dashboard/%i" % self.workspace_id, params)
+        dashboard_response = self.query("/workspaces/%i/dashboard/all_activity" % self.workspace_id, params)
 
         if dashboard_response.status_code != requests.codes.ok:
             dashboard_response.raise_for_status()
@@ -144,7 +144,7 @@ class TogglClientApi(object):
             }
         }
         """
-        response = self.query("/time_entries", method="POST", json_data=json_data)
+        response = self.query("/workspaces/%i/time_entries" % self.workspace_id, method="POST", json_data=json_data)
 
         if response.status_code != requests.codes.ok:
             response.raise_for_status()
