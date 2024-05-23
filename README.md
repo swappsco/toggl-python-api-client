@@ -24,12 +24,14 @@ Download to a location of your choice and do the following.
 from toggl.api_client import TogglClientApi
 
 settings = {
-    'token': 'xxx',
-    'user_agent': 'your app name'
+    'token': 'token',
+    'user_agent': 'agent',
+    'workspace_id': '####',
+    'username': 'email',
 }
-toggle_client = TogglClientApi(settings)
+toggl_client = TogglClientApi(settings)
 
-response = toggle_client.get_workspaces()
+response = toggl_client.get_workspaces()
 
 ```
 
